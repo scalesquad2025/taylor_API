@@ -3,11 +3,13 @@ const express = require('express');
 const path = require('path');
 const auth = require('./middleware/authorization.js');
 const axios = require('axios')
-
+const controllers = require('./controllers.js');
+const seedItAll = require('./seedProduct.js');
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
+app.use(seedItAll());
 
 // attach auth key to all routes
 app.use('/api', auth);
