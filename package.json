@@ -6,6 +6,7 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack --watch --mode=development",
+    "seed": "node server/seedProduct.js",
     "test": "jest",
     "test-ratings-reviews": "npx jest /client/src/components/RatingsReviews/ratingsReviewsTest.test.js",
     "test-related-items": "npx jest /client/src/components/RelatedItems/__tests__/RelatedItems.js",
@@ -23,6 +24,10 @@
   },
   "homepage": "https://github.com/Grand-Line-Voyagers-FEC/Atelier#readme",
   "dependencies": {
+    "fs": "^0.0.1-security",
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.10.0",
+    "path": "^0.12.7",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
     "babel-jest": "^29.7.0",

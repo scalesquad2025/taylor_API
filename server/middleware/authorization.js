@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   const type = req.method;
   const endpoint = req.url;
   const body = req.body;
-  const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${endpoint}`
+  const url = `https://localhost:3000/api/fec2/hr-rfp${endpoint}`
 
   // console.log('URL: ', url)
   // console.log('Making request to:', endpoint);

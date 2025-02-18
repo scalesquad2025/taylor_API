@@ -2,47 +2,45 @@ const mongoose = require('mongoose');
 
 const db = mongoose.connect('mongodb://localhost:27017/sdc2025');
 
-
 const featuresSchema = new mongoose.Schema({
-  id: {type: String, required: true, unique: true},
-  productId: { type: String, required: true, ref: 'Product' },
+  _id: {type: String, required:true},
+  productId: {type: String, required: true},
   feature: {type: String, required: true},
   value: {type: String, required: true}
 }, { collection: 'Features' })
 
 const photosSchema = new mongoose.Schema({
-  id: {type: String, required: true, unique: true},
-  styleId: {type: String, required: true, ref: 'Style'},
+  _id: {type: String, required:true},
+  styleId: {type: String, required: true},
   thumbnail_url: {type: String, required: true},
   url: {type: String, required: true}
 }, { collection: 'Photos' })
 
 const skusSchema = new mongoose.Schema({
-  styleId: { type: String, required: true, ref: 'Style' },
-  id: {type: Number, required: true},
+  _id: {type: String, required:true},
+  styleId: {type: String, required: true},
   quantity: { type: Number, required: true },
   size: { type: String, required: true }
 }, { collection: 'SKUs' })
 
 const stylesSchema = new mongoose.Schema({
-  id: {type: String, required: true, unique: true},
-  productId: { type: String, required: true, ref: 'Product' },
+  _id: {type: String, required:true},
+  productId: {type: String, required: true},
   name: String,
   original_price: String,
   sale_price: {type: String, default: null},
   default: String,
-  // photos
-  // skus
+  photos: [{ type: String, ref: 'Photos' }],
+  skus: [{ type: String, ref: 'SKUs' }]
 }, { collection: 'Styles' })
 
 const relatedSchema = new mongoose.Schema({
-  id: {type: String, required: true, unique: true},
-  productId: { type: String, required: true, ref: 'Product' },
-  relatedIds: {type: String}
+  _id: {type: Number, required: true},
+  relatedIds: [{ type: Number, ref: 'Product' }]
 }, { collection: 'Related' })
 
 const productSchema = new mongoose.Schema({
-  id: {type: String, required: true, unique: true},
+  _id: {type: String, required:true},
   campus: String,
   name: String,
   slogan: String,
@@ -51,17 +49,16 @@ const productSchema = new mongoose.Schema({
   default_price: String,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
-  // features
-  // related
-  // styles
+  features: [{ type: String, ref: 'Features' }],
+  results: [{ type: String, ref: 'Styles' }]
 }, { collection: 'Product' })
 
 const cartSchema = new mongoose.Schema({
-  id: {type: Number, required: true, unique: true},
-  user_session: {type: Number, required: true},
-  product_id: { type: String, required: true, ref: 'Product' },
+  _id: {type: String, required:true},
+  user_session: {type: Number, required: true, index: true},
+  product_id: {type: Number, required: true},
   active: String,
-}, { collection: 'Cart' })
+},{ collection: 'Cart' })
 
 const Cart = mongoose.model("Cart", cartSchema);
 const Product = mongoose.model('Product', productSchema);
