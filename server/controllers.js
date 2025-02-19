@@ -28,10 +28,10 @@ module.exports = {
         .select('-created_at -__v -_id -updated_at -campus -features -related -styles -results')
         .limit(count)
         .exec();
-
         resolve(products);
       } catch (err) {
         console.error('Error fetching paginated documents:', err);
+        reject(err);
       }
     })
   },
@@ -50,6 +50,7 @@ module.exports = {
         resolve(product);
       } catch (err) {
         console.error('Error fetching paginated documents:', err);
+        reject(err);
       }
     })
   },
@@ -78,6 +79,7 @@ module.exports = {
         resolve(product);
       } catch (err) {
         console.error('Error fetching paginated documents:', err);
+        reject(err);
       }
     })
   },
@@ -91,6 +93,7 @@ module.exports = {
         resolve(related.relatedIds);
       } catch (err) {
         console.error('Error fetching paginated documents:', err);
+        reject(err);
       }
     })
   },
@@ -104,6 +107,7 @@ module.exports = {
         resolve(cart);
       } catch (err) {
         console.error('Error fetching paginated documents:', err);
+        reject(err);
       }
     })
   },
@@ -121,8 +125,11 @@ module.exports = {
       newCart.save()
       .then(() => {
         resolve();
-      }
-      )
+      })
+      .catch((err) => {
+        console.log('error saving cart:', err);
+        reject(err);
+      })
     })
   },
 }

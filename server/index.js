@@ -17,12 +17,18 @@ app.get('/products', (req, res) => {
   .then((data) => {
     res.status(200).send(data);
   })
+  .catch((err) => {
+    res.status(500).end();
+  })
 });
 
 app.get('/products/:product_id', (req, res) => {
   controllers.getOneProduct(req.params.product_id)
   .then((data) => {
     res.status(200).send(data);
+  })
+  .catch((err) => {
+    res.status(500).end();
   })
 });
 
@@ -31,12 +37,18 @@ app.get('/products/:product_id/related', (req, res) => {
   .then((data) => {
     res.status(200).send(data);
   })
+  .catch((err) => {
+    res.status(500).end();
+  })
 });
 
 app.get('/products/:product_id/styles', (req, res) => {
   controllers.getProductStyles(req.params.product_id)
   .then((data) => {
     res.status(200).send(data);
+  })
+  .catch((err) => {
+    res.status(500).end();
   })
 });
 
@@ -45,6 +57,9 @@ app.get('/cart', (req, res) => {
   .then((data) => {
     res.status(200).send(data);
   })
+  .catch((err) => {
+    res.status(500).end();
+  })
 });
 
 app.post('/cart', (req, res) => {
@@ -52,8 +67,14 @@ app.post('/cart', (req, res) => {
   .then(() => {
     res.status(201).send("cart saved successfully");
   })
+  .catch((err) => {
+    res.status(500).end();
+  })
 })
 
 app.listen(3000, () => {
   console.log('currently listening on port 3000');
 })
+
+
+module.exports = app

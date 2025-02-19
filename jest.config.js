@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: "jsdom",
+  testEnvironment: "node",
   rootDir: process.cwd(), // Explicitly set root directory
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
