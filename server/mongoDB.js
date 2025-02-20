@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const db = mongoose.connect('mongodb://localhost:27017/sdc2025');
-
+const db = mongoose.connect('mongodb://3.144.110.212:27017/sdc2025');
+//mongosh 3.144.110.212:27017
 const featuresSchema = new mongoose.Schema({
   _id: {type: String, required:true},
   productId: {type: String, required: true},

@@ -213,7 +213,7 @@ const seedRelated = () => {
         if (Object.keys(relatedArrIds).length === BATCH_SIZE) {
           stream.pause();
 
-          for (var key of Object.keys(relatedArrIds)) {
+          for await (var key of Object.keys(relatedArrIds)) {
             batch.push({
               _id: key,
               relatedIds: relatedArrIds[key],
@@ -260,7 +260,15 @@ const seedRelated = () => {
         return;
       }
       try {
-        await db.Related.insertMany(batch);
+        const bulkOps = batch.map(doc => ({
+          updateOne: {
+            filter: { _id: doc._id },
+            update: { $set: doc },
+            upsert: true
+          }
+        }));
+
+        await db.Related.bulkWrite(bulkOps);
         console.log('Batch inserted successfully');
       } catch (err) {
         console.error('Error saving data for product', err);
@@ -601,18 +609,6 @@ const seedCart = () => {
   })
 }
 
-/*
-Cart 7th,
-
-Related 6th,
-
-Product 5th
-  -feautres [] 4th
-  -styles [ 3rd
-    --skus [] 2nd
-    --photos [] 1st
-  ]
-*/
 
 const seedItAll = async () => {
   try {
