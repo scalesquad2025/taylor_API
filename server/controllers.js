@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Product, Cart, Styles, SKUs, Photos, Features, Related} = require('./mongoDB.js');
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/sdc2025', {
+    await mongoose.connect('mongodb://3.144.110.212:27017/sdc2025', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
